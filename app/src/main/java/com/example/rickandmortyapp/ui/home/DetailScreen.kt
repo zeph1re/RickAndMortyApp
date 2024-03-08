@@ -28,7 +28,9 @@ import com.example.rickandmortyapp.ui.theme.RickAndMortyAppTheme
 
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    viewModel : HomeViewModel
+) {
 
     DetailScreenContent()
 

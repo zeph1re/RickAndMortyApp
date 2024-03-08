@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -85,8 +86,7 @@ fun HomeScreen(
             Box(
                 modifier = Modifier
                     .padding(16.dp)
-                    .width(100.dp)
-                    .height(100.dp)
+                    .size(50.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.profile_picture),
@@ -122,16 +122,24 @@ fun HomeScreen(
                 fontWeight = FontWeight.Bold
             )
         )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(vertical = 16.dp)
-        ) {
-            items(characterData) {data ->
 
-                CharacterList(data = data)
+        if (characterData.isEmpty()) {
+            Text(text = "Loading...")
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(vertical = 16.dp)
+            ) {
+                items(characterData) {data ->
+
+                    CharacterList(data = data)
+                }
             }
         }
+
+
+
 
     }
 }
