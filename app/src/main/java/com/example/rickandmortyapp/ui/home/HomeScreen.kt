@@ -15,12 +15,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -32,11 +36,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rickandmortyapp.R
+import com.example.rickandmortyapp.models.Character
+import com.example.rickandmortyapp.ui.common_use.AppCard
 
 
-@Preview(showSystemUi = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+) {
+
+    val characterData by viewModel.characterData.observeAsState(listOf())
+
+    LaunchedEffect(viewModel) {
+        viewModel.getCharacter()
+    }
+
+
     Column(
         modifier = Modifier.padding(
             horizontal = 16.dp,
@@ -68,7 +83,10 @@ fun HomeScreen() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
+                    .width(100.dp)
+                    .height(100.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.profile_picture),
@@ -104,75 +122,40 @@ fun HomeScreen() {
                 fontWeight = FontWeight.Bold
             )
         )
-        CharacterList()
-
-    }
-}
-
-
-@Composable
-fun CharacterList() {
-    val itemCount = 10
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxHeight()
-            .padding(vertical = 16.dp)
-    ) {
-        items(itemCount) {
-            Box {
-                CharacterListItem()
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CharacterListItem() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .wrapContentHeight(),
-        border = BorderStroke(
-            width = 1.dp, brush = Brush.horizontalGradient(
-                colors = listOf(
-                    MaterialTheme.colorScheme.inversePrimary,
-                    MaterialTheme.colorScheme.primaryContainer
-                )
-            )
-        ),
-        shape = RoundedCornerShape(16.dp),
-//        elevation = CardElevation(10.dp),
-    ) {
-        Box(
+        LazyColumn(
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth(),
+                .fillMaxHeight()
+                .padding(vertical = 16.dp)
+        ) {
+            items(characterData) {data ->
 
-            ) {
-            Row {
-                Column {
-                    Text(text = "Name   ")
-                    Text(text = "Gender ")
-                    Text(text = "Status ")
-                    Text(text = "Species")
-                    Text(text = "Origin ")
-                }
-                Column {
-                    Text(text = "Name")
-                    Text(text = "Gender")
-                    Text(text = "Status")
-                    Text(text = "Species")
-                    Text(text = "Origin")
-
-                }
+                CharacterList(data = data)
             }
         }
+
     }
-
-
 }
+
+
+
+@Composable
+fun CharacterList(data : Character) {
+    AppCard(
+        name = data.name,
+        imageUrl = data.imageUrl,
+        status = data.status,
+        gender = data.gender,
+        species = data.species) {
+
+
+    }
+}
+
+
+
+
+
+
 
 
 

@@ -75,4 +75,19 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    // Retrofit for API requests
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    // ViewModel and LiveData for MVVM architecture
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-livedata:2.7.0"
+
+    //Live Data
+    implementation "androidx.compose.runtime:runtime-livedata:1.7.0-alpha04"
+
+
+    //Image Loader
+    implementation "com.github.bumptech.glide:compose:1.0.0-beta01"
+
+
 }
