@@ -133,7 +133,7 @@ fun HomeScreen(
             ) {
                 items(characterData) {data ->
 
-                    CharacterList(data = data)
+                    CharacterItem(data = data)
                 }
             }
         }
@@ -147,7 +147,7 @@ fun HomeScreen(
 
 
 @Composable
-fun CharacterList(data : Character) {
+fun CharacterItem(data : Character) {
     AppCard(
         name = data.name,
         imageUrl = data.imageUrl,
