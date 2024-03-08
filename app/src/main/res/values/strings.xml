@@ -2,4 +2,6 @@
     <string name="app_name">Rick And Morty App</string>
     <string name="title_activity_character_list">CharacterList</string>
     <string name="title_activity_detail_screen">DetailScreen</string>
+    <string name="title_activity_character_by_location_screen">CharacterByLocationScreen</string>
+    <string name="title_activity_location_screen">LocationScreen</string>
 </resources>
